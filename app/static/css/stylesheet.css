@@ -1,0 +1,72 @@
+.header {
+    background-color: #536DFE;
+}
+
+.tag {
+    margin-left: 15px;
+    font-weight: 400px;
+}
+
+#footer {
+    position: relative;
+    margin-top: 5%;
+    bottom: 0;
+    width: 100%;
+}
+
+.qry {
+    margin-bottom: 30px;
+    font-family: 'Hahmlet', serif;
+    font-weight: 400px;
+    font-size: 25px;
+}
+
+#form {
+    margin: 30px 100px 40px 100px;
+}
+
+#txtsize {
+    font-weight: 300px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.about {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.innerPara {
+    padding:20px;
+    line-height: 1.8;
+    font-family: 'Hahmlet', serif;
+}
+
+legend {
+    width:200px;
+    padding:10px 20px;
+    font-family: 'Hahmlet', serif;
+}
+
+.progress {
+    height: 31px;
+    margin-bottom: 10px
+}
+
+.posit {
+    padding-left: 80%;
+}
+
+.progress-bar {
+    text-align: right;
+    transition-duration: 3s;
+}
+
+.bsp_big-image {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    margin-top: 0px
+}
