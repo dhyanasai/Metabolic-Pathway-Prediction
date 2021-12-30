@@ -7,8 +7,6 @@ from rdkit.Chem import Descriptors, Draw
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
 
 if torch.cuda.is_available():
     device = torch.device('cuda')
@@ -70,7 +68,6 @@ def create_adjacency(mol):
 
 def preprocess(smiles):
     mol = Chem.MolFromSmiles(smiles)
-
     Draw.MolToFile(mol, "app/static/images/molecule.png", size= (250, 250), kekulize=True, wedgeBonds=True)
 
     atoms = create_atom_index(mol)
