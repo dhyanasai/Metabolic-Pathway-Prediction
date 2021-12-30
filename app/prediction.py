@@ -77,7 +77,7 @@ def smiles_to_iupac(smiles):
 
 def preprocess(mol, name):
     file_name = "app/static/images/molecule"+name+".png"
-    f = open(file_name, 'w')
+    f = open("app/static/images/molecule"+name+"111.png", 'w')
     Draw.MolToFile(mol, file_name, size= (250, 250), kekulize=True, wedgeBonds=True)
     f.close()
 
