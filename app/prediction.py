@@ -77,8 +77,9 @@ def smiles_to_iupac(smiles):
 
 def preprocess(mol, name):
     file_name = "app/static/images/molecule"+name+".png"
-    with open(file_name, 'w'):
-        Draw.MolToFile(mol, file_name, size= (250, 250), kekulize=True, wedgeBonds=True)
+    f = open(file_name, 'w')
+    Draw.MolToFile(mol, file_name, size= (250, 250), kekulize=True, wedgeBonds=True)
+    f.close()
 
     atoms = create_atom_index(mol)
     i_jbond_dict = create_ijbonddict(mol)
