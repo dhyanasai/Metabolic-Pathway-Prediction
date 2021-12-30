@@ -150,10 +150,11 @@ model = PathwayPredictor().to(device)
 model.load_state_dict(torch.load("app/trained_weights/gnc.pth"))
 
 def predict(smiles):
-    name = smiles_to_iupac(smiles['text'].strip())
     mol = Chem.MolFromSmiles(smiles['text'].strip())
     if not mol:
         return {'class': 0}
+
+    name = smiles_to_iupac(smiles['text'].strip())
     Fingerprints, Adjacency, descriptors = preprocess(mol, name)
     
     Fingerprints = torch.LongTensor(Fingerprints).to(device)
