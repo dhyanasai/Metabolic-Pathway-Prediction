@@ -76,7 +76,9 @@ def smiles_to_iupac(smiles):
     return response.text
 
 def preprocess(mol, name):
-    Draw.MolToFile(mol, "app/static/images/molecule"+name+".png", size= (250, 250), kekulize=True, wedgeBonds=True)
+    file_name = "app/static/images/molecule"+name+".png"
+    with open(file_name, 'w'):
+        Draw.MolToFile(mol, file_name, size= (250, 250), kekulize=True, wedgeBonds=True)
 
     atoms = create_atom_index(mol)
     i_jbond_dict = create_ijbonddict(mol)
@@ -147,8 +149,7 @@ model = PathwayPredictor().to(device)
 model.load_state_dict(torch.load("app/trained_weights/gnc.pth"))
 
 def predict(smiles):
-    #name = smiles_to_iupac(smiles['text'].strip())
-    name="done"
+    name = smiles_to_iupac(smiles['text'].strip())
     mol = Chem.MolFromSmiles(smiles['text'].strip())
     if not mol:
         return {'class': 0}
