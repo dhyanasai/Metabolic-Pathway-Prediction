@@ -8,6 +8,8 @@ $(document).ready(function() {
 
 window.addEventListener('keyup', function(event) {
     if (event.keyCode === 13) {
+        $('#disp').css("display","none");
+        document.getElementById('image').src = "";
         $('#txtsize').css("font-size","60px");
         $('#txtsize').css("text-align","center");
         document.getElementById('txtsize').innerHTML = "Loading...";
@@ -29,12 +31,20 @@ window.addEventListener('keyup', function(event) {
             return response.text();
         }).then(function (text) {
             text = JSON.parse(text);
-            $('#txtsize').css("font-size","20px");
+            $('#txtsize').css("font-size","18px");
             $('#txtsize').css("text-align","left");
             $('#txtsize').css("margin-left","100px");
-            document.getElementById('txtsize').innerHTML = "<b style='font-weight:bold'>Predicted Results</b>:<br>"
-            for (var i = 0; i < text.class.length; i++) {
-                document.getElementById('txtsize').innerHTML+= "&emsp;"+(i+1)+") "+text.class[i]+"<br>";
+            if(text.class!==0) {
+                $('#disp').css("display","contents");
+                document.getElementById('image').src = "static/images/molecule"+text.name+".png";
+                document.getElementById('name').innerHTML = text.name;
+                document.getElementById('txtsize').innerHTML = "<b style='font-weight:bold'>Predicted Results</b>:<br>"
+                for (var i = 0; i < text.class.length; i++) {
+                    document.getElementById('txtsize').innerHTML+= "&emsp;"+(i+1)+") "+text.class[i]+"<br>";
+                }
+            }
+            else {
+                document.getElementById('txtsize').innerHTML = "Enter correct SMILES string. Molecule not found!"
             }
         });
     }

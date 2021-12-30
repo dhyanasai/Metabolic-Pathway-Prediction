@@ -27,10 +27,31 @@
 
 #txtsize {
     font-weight: 300px;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 20px;
     text-align: center;
     line-height: 1.8;
+    font-family: 'Hahmlet', serif;
+}
+
+div.polaroid {
+    display: none;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 550px;
+    margin-right: 550px;
+    margin-bottom: 25px;
+}
+
+div.container {
+    text-align: center;
+    padding: 10px 20px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about {
@@ -49,24 +70,4 @@ legend {
     width:200px;
     padding:10px 20px;
     font-family: 'Hahmlet', serif;
-}
-
-.progress {
-    height: 31px;
-    margin-bottom: 10px
-}
-
-.posit {
-    padding-left: 80%;
-}
-
-.progress-bar {
-    text-align: right;
-    transition-duration: 3s;
-}
-
-.bsp_big-image {
-    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0);
-    border-radius: 5px;
-    margin-top: 0px
 }

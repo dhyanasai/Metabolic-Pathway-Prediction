@@ -1,6 +1,7 @@
 from collections import defaultdict
 import pickle
 import numpy as np
+import requests
 
 from rdkit import Chem
 from rdkit.Chem import Descriptors, Draw
@@ -66,9 +67,16 @@ def create_adjacency(mol):
     adjacency = np.matmul(d_half_inv,np.matmul(adjacency,d_half_inv))
     return np.array(adjacency)
 
-def preprocess(smiles):
-    mol = Chem.MolFromSmiles(smiles)
-    Draw.MolToFile(mol, "app/static/images/molecule.png", size= (250, 250), kekulize=True, wedgeBonds=True)
+def smiles_to_iupac(smiles):
+    rep = "iupac_name"
+    CACTUS = "https://cactus.nci.nih.gov/chemical/structure/{0}/{1}"
+    url = CACTUS.format(smiles, rep)
+    response = requests.get(url)
+    response.raise_for_status()
+    return response.text
+
+def preprocess(mol, name):
+    Draw.MolToFile(mol, "app/static/images/molecule"+name+".png", size= (250, 250), kekulize=True, wedgeBonds=True)
 
     atoms = create_atom_index(mol)
     i_jbond_dict = create_ijbonddict(mol)
@@ -139,7 +147,12 @@ model = PathwayPredictor().to(device)
 model.load_state_dict(torch.load("app/trained_weights/gnc.pth"))
 
 def predict(smiles):
-    Fingerprints, Adjacency, descriptors = preprocess(smiles['text'].strip())
+    #name = smiles_to_iupac(smiles['text'].strip())
+    name="done"
+    mol = Chem.MolFromSmiles(smiles['text'].strip())
+    if not mol:
+        return {'class': 0}
+    Fingerprints, Adjacency, descriptors = preprocess(mol, name)
     
     Fingerprints = torch.LongTensor(Fingerprints).to(device)
     inputs = list(zip([Fingerprints, Adjacency]))
@@ -161,6 +174,6 @@ def predict(smiles):
         if path_class:
             class_list.append(classes[i])
 
-    pred = {'class': class_list}
+    pred = {'class': class_list, 'name':name}
 
     return pred
