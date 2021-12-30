@@ -19,9 +19,9 @@ def load_pickle(file_name):
     with open(file_name, 'rb') as f:
         return pickle.load(f)
 
-atom_dict = load_pickle('trained_weights/atom_dict.pickle')
-bond_dict = load_pickle('trained_weights/bond_dict.pickle')
-fingerprint_dict = load_pickle('trained_weights/fingerprint_dict.pickle')
+atom_dict = load_pickle('app/trained_weights/atom_dict.pickle')
+bond_dict = load_pickle('app/trained_weights/bond_dict.pickle')
+fingerprint_dict = load_pickle('app/trained_weights/fingerprint_dict.pickle')
 radius = 2
 
 # dictionary of atoms where a new element gets a new index
@@ -71,7 +71,7 @@ def create_adjacency(mol):
 def preprocess(smiles):
     mol = Chem.MolFromSmiles(smiles)
 
-    Draw.MolToFile(mol, "static/molecule.png", size= (250, 250), kekulize=True, wedgeBonds=True)
+    Draw.MolToFile(mol, "app/static/images/molecule.png", size= (250, 250), kekulize=True, wedgeBonds=True)
 
     atoms = create_atom_index(mol)
     i_jbond_dict = create_ijbonddict(mol)
@@ -139,7 +139,7 @@ layer = 2
 n_fingerprint = len(fingerprint_dict)
 
 model = PathwayPredictor().to(device)
-model.load_state_dict(torch.load("trained_weights/gnc.pth"))
+model.load_state_dict(torch.load("app/trained_weights/gnc.pth"))
 
 def predict(smiles):
     Fingerprints, Adjacency, descriptors = preprocess(smiles['text'].strip())
